@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Pembayaran SPP</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.navbar{
+    background-color: #5aa0ea;
+    padding: 10px;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-logo {
+   width: 50px;
+   height: auto;
+   margin-right: 10px;
+}
+.navbar-text {
+    display: flex;
+    align-items: center;
+}
+
+
+
+.navbar-links{
+    display: flex;
+    gap: 20px;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.payment-container {
+    text-align: left;
+    margin-top: 70px;
+}
+
+
+
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.school-logo {
+    width: 50px;
+    height: auto;
+    margin-bottom: 2px;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.button-container {
+            text-align: right;
+            margin-bottom: 20px;
+}
+
+#total-biaya {
+            text-align: right;
+            margin-bottom: 10px; 
+}
+    </style>
+
+<script>
+    function hitungPembayaran() {
+        const biayaBulanan = 550;
+        const pilihBulan = document.getElementById('bulan_pembayaran');
+        const pilihMetode = document.querySelector('input[name="metode_pembayaran"]:checked');
+        const pilihCicilan = document.querySelector('input[name="pilihan_pembayaran"]:checked');
+        const pilihHarga = document.getElementById('harga_pembayaran');
+        const biayaBulan = pilihHarga.value ? parseFloat(pilihHarga.value) : biayaBulanan; // Gunakan harga yang dipilih atau bawaan
+        const biayaMetode = pilihMetode.value === 'tunai' ? 0 : 10; // Sesuaikan sesuai kebutuhan
+        const biayaCicilan = pilihCicilan.value === 'cicilan' ? 5 : 0; // Sesuaikan sesuai kebutuhan
+
+        const totalBiaya = biayaBulan + biayaMetode + biayaCicilan;
+        document.getElementById('total-biaya').textContent = 'Total Biaya: Rp ' + totalBiaya;
+    }
+</script>
+    
+</head>
+<body>
+    <div class="navbar">
+        <img src="logo smk.jpg" alt="Logo" class="navbar-logo">
+        <div class="navbar-text">
+           <h2> SMK MANAGEMENT TRAINING SYSTEM</h2>
+        </div>
+        <div class="logo spp.png" alt="Logo" calss="logo-right">
+        </div>
+        <div class="navbar-links">
+            <a href="#">HOME</a>
+
+            <a href="#">HISTORY</a>
+            
+        </div>
+    </div>
+
+    <div class="payment-container">
+        <form action="proses_pembayaran.php" method="post" class="payment-form">
+            <h2>Form Pembayaran SPP</h2>
+            <div id="total-biaya"></div>
+
+            <label for="nama">Nama:</label>
+            <input type="text" id="nama" name="nama" required>
+
+            <label for="nomor_induk">Nomor Induk Siswa:</label>
+            <input type="text" id="nomor_induk" name="nomor_induk" required>
+
+            <label for="kelas">Kelas:</label>
+            <input type="text" id="kelas" name="kelas" required>
+
+            <label for="bulan_pembayaran">Bulan Pembayaran:</label>
+            <select id="bulan_pembayaran" name="bulan_pembayaran" required>
+                <option value="januari">Januari</option>
+                <option value="februari">Februari</option>
+                <option value="maret">Maret</option>
+                <option value="april">April</option>
+                <option value="mei">Mei</option>
+                <option value="juni">Juni</option>
+                <option value="juli">juli</option>
+                <option value="agustus">Agustus</option>
+                <option value="september">September</option>
+                <option value="oktober">Oktober</option>
+                <option value="november">November</option>
+                <option value="desember">Desember</option>
+
+                <label for="harga_pembayaran">Harga Pembayaran:</label>
+                <select id="harga_pembayaran" name="harga_pembayaran" required>
+                    <option value="">Pilih Harga Pembayaran</option>
+                    <option value="200">Rp 200 </option>
+                    <option value="250">Rp 250</option>
+                    <option value="550">Rp 550</option>
+            </select>
+
+            <label for="metode_pembayaran">Metode Pembayaran:</label>
+            <input type="radio" id="tunai" name="metode_pembayaran" value="tunai" checked>
+            <label for="tunai">Tunai</label>
+            <input type="radio" id="transfer" name="metode_pembayaran" value="transfer">
+            <label for="transfer">Transfer</label>
+
+            <label for="bank">Pilih Bank:</label>
+            <select id="bank" name="bank" required>
+                <option value="bca">BCA</option>
+                <option value="bni">BNI</option>
+                <option value="bri">BRI</option>
+                <option value="mandiri">MANDIRI<option>    
+            </select>
+
+            <label for="nomor_rekening">Nomor Rekening:</label>
+<input type="text" id="nomor_rekening" name="nomor_rekening" required>
+        
+            <button type="submit">Bayar</button>
+            <button type="reset">Reset</button>
+        </form>
+    </div>
+
+</body>
+</html>
